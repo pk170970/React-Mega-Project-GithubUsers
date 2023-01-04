@@ -31,9 +31,11 @@ const BarChartComponent = ({data}) => {
       // Chart Configuration
       chart: {
        caption:'Most Forked',
-       theme:'fusion',
-       pieRadius:'35%',
-       decimals:0
+       yAxisName:'Repos',
+       xAxisName:'Forks',
+       xAxisNameFontSize:'16px',
+       yAxisNameFontSize:'16px',
+       theme:'fusion'
       },
       // Chart Data
       data

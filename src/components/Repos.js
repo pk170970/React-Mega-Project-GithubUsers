@@ -6,9 +6,9 @@ import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 const Repos = () => {
 
   const { repos } = React.useContext(GithubContext);
-  console.log(repos);
+  // console.log(repos);
 
-  
+  // console.log(mostStarsLanguage);
 
   const data = repos.reduce((acc, curr) => {
     //acc: is a long object where we are searching only language
@@ -27,27 +27,43 @@ const Repos = () => {
     .sort((a, b) => b.value - a.value)  // sorting from high to low
     .slice(0, 5);  // slicing to get only 5 languages
 
-  const mostPopularLanguages = Object.values(data).map(item => {
+  const mostStarsLanguage = Object.values(data).map(item => {
     return { ...item, value: item.stars }
   }).sort((a, b) => b.value - a.value).slice(0, 5);
 
 
+  const { stars, forks } = repos.reduce((acc, curr) => {
+    const { name, forks_count, stargazers_count } = curr;
+    acc.stars[name] = { label: name, value: stargazers_count } //
+    acc.forks[name] = { label: name, value: forks_count }
+    return acc;
+
+  }, {
+    stars: {},
+    forks: {}
+  })
+
+
+  const mostForkedRepo = Object.values(forks).sort((a, b) => b.value - a.value).slice(0, 5);
+  const mostStarsRepo = Object.values(stars).sort((a, b) => b.value - a.value).slice(0, 5);
+
   
+  // console.log(mostStarsRepo);
   // // temp data
-  const chartData = [
-    {
-      label: "Html",
-      value: "10"
-    },
-    {
-      label: "CSS",
-      value: "260"
-    },
-    {
-      label: "Javascript",
-      value: "50"
-    }
-  ];
+  // const chartData = [
+  //   {
+  //     label: "Html",
+  //     value: "10"
+  //   },
+  //   {
+  //     label: "CSS",
+  //     value: "260"
+  //   },
+  //   {
+  //     label: "Javascript",
+  //     value: "50"
+  //   }
+  // ];
 
 
   return (
@@ -55,9 +71,9 @@ const Repos = () => {
       <Wrapper className='section-center'>
         {/* <ExampleChart data={chartData} /> */}
         <Pie3D data={mostUsedLanguages} />
-        <Doughnut2D data={mostPopularLanguages} />
-        <Column3D data={chartData} />
-        <Bar3D data={chartData} />
+        <Doughnut2D data={mostStarsLanguage} />
+        <Column3D data={mostStarsRepo} />
+        <Bar3D data={mostForkedRepo} />
       </Wrapper>
     </section>
   );

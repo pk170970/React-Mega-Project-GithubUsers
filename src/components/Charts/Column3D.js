@@ -31,9 +31,11 @@ const ColumnChartComponent = ({data}) => {
       // Chart Configuration
       chart: {
        caption:'Most Popular Repo',
-       theme:'candy',
-       pieRadius:'35%',
-       decimals:0
+       yAxisName:'Stars',
+       xAxisName:'Repos',
+       xAxisNameFontSize:'16px',
+       yAxisNameFontSize:'16px'
+       
       },
       // Chart Data
       data

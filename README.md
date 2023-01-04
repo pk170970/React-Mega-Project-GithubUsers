@@ -64,7 +64,8 @@ version used - "react-router-dom": "^5.2.0",
 ## Auth0
 
 - [Auth0 - Main Docs](https://auth0.com/)
-
+- domain: dev-1rh4250emlsq08nj.us.auth0.com
+-client-id: BvxAHA75XtMJfU3TJxQByTzwqj0OJauI
 - Create Application
 - Choose : Single Page Web Applications
 - Choose : React

@@ -1,9 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Navbar = () => {
-  return <h2>navbar component</h2>;
+  const { isAuthenticated, loginWithRedirect, logout, user, isLoading } = useAuth0();
+  const isUser = isAuthenticated && user;
+  // console.log(isAuthenticated, user);
+  return (
+    <Wrapper>
+      {isUser ?
+        <>
+          <img src={user.picture} alt={user.name} />
+          <h4>Welcome, <strong>{user.name}</strong></h4>
+          <button onClick={() => logout({ returnTo: window.location.origin })}>logout</button>
+        </> :
+      <button onClick={loginWithRedirect}>login</button>}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.nav`

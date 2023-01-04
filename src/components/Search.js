@@ -2,8 +2,52 @@ import React from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { GithubContext } from '../context/context';
+import axios from 'axios';
+
+
 const Search = () => {
-  return <h2>search component</h2>;
+  const { search, setSearch, request, error, setGithubUser, setRepos, setFollowers, toggleError,fetchUser,loading } = React.useContext(GithubContext);
+
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetchUser();
+    // fetchRepos();
+    // fetchFollowers();
+  }
+
+  
+
+  // async function fetchRepos() {
+  //   const response = await axios.get(`${userUrl}/repos?per_page=100`);
+  //   console.log(response.data);
+  //   setRepos(response.data);
+  // }
+
+  // async function fetchFollowers() {
+  //   const response = await axios.get(`${userUrl}/followers`);
+  //   console.log(response.data);
+  //   setFollowers(response.data);
+  // }
+
+  return (
+    <section className="section">
+      <Wrapper className='section-center'>
+        {error.show && <ErrorWrapper><p>{error.msg}</p></ErrorWrapper>}
+        <form >
+          <div className="form-control">
+            <MdSearch />
+            <input type="text" placeholder='enter the github user' onChange={(e) => setSearch(e.target.value)} value={search} />
+
+            {request > 0 && !loading && (<button type="submit" onClick={handleSubmit}>Search</button>)}
+          </div>
+        </form>
+        <h3>
+          Requests: {request}/60
+        </h3>
+      </Wrapper>
+    </section>
+  );
 };
 
 const Wrapper = styled.div`
